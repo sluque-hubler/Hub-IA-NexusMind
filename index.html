@@ -67,6 +67,25 @@ nav a.nx svg{color:#0F9A63}
 nav a.nx.on{background:linear-gradient(135deg,#05050A,#1B2140);box-shadow:0 0 22px rgba(75,224,161,.35),inset 0 0 0 1px rgba(75,224,161,.6)}
 nav a.nx.on svg{color:var(--gov)}
 nav a.hidden{display:none}
+nav a.nx .chev{margin-left:6px;width:16px;height:16px;transition:transform .25s}
+nav a.nx.exp .chev{transform:rotate(90deg)}
+nav a.nx.act:not(.on){background:linear-gradient(135deg,#05050A,#1B2140);color:#fff;box-shadow:0 0 22px rgba(75,224,161,.3),inset 0 0 0 1px rgba(75,224,161,.55)}
+nav a.nx.act svg{color:var(--gov)}
+nav a.nx.act .b{background:rgba(255,255,255,.14);color:#fff}
+.sub{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1);position:relative;margin:-2px 0 4px}
+.sub.open{max-height:520px}
+.sub::before{content:"";position:absolute;left:26px;top:4px;bottom:16px;width:2px;border-radius:2px;background:linear-gradient(180deg,rgba(75,224,161,.7),rgba(37,99,235,.25))}
+.sub a{height:40px;border-radius:13px;margin:0 0 4px 22px;padding:0 12px;font-size:12.8px;font-weight:600;background:transparent;box-shadow:none;gap:11px}
+.sub a svg{width:17px;height:17px}
+.sub a::before{content:"";position:absolute;left:-17px;top:50%;width:12px;height:2px;background:rgba(75,224,161,.55);border-radius:2px}
+.sub a:hover{background:rgba(255,255,255,.7)}
+.sub a.on{background:rgba(75,224,161,.16);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(75,224,161,.55)}
+.sub a.on svg{color:#0F9A63}
+body:not(.open) .sub::before{left:39px}
+body:not(.open) .sub a{margin-left:0;justify-content:center;padding:0;width:52px}
+body:not(.open) .sub a::before{display:none}
+body:not(.open) .sub a .t, body:not(.open) nav a.nx .chev{display:none}
+.crumb b{color:var(--ink);font-weight:700}
 nav a.off{opacity:.45;cursor:default}
 body:not(.open) nav a .t, body:not(.open) nav a .b{display:none}
 body:not(.open) nav a[data-tip]:hover::after{content:attr(data-tip);position:fixed;left:calc(var(--side-w) + 26px);background:var(--night);color:#fff;font-size:12px;font-weight:600;padding:7px 11px;border-radius:10px;white-space:nowrap;box-shadow:var(--sh-s);z-index:60}
@@ -352,24 +371,50 @@ let RULES = [
 
 /* =================== navegación =================== */
 let role = 'Dirección', current = 'home';
+const NXT = [
+ ['res','Resumen','chart','Gobierno de la IA de <span class="acc">toda la empresa</span>','Control de accesos, consumo, modelos, conocimiento, seguridad y auditoría de cada interacción con la IA, conectado con el Hub.',[['Cubre','Accesos, consumo, modelos, conocimiento y auditoría'],['Sirve para','Usar la IA con control, seguridad y trazabilidad']]],
+ ['con','Consumo y presupuestos','euro','Consumo y <span class="acc">presupuestos</span>','Límites de gasto por persona, por proyecto y global, con el consumo real de cada usuario en tokens y en euros.',[['Controla','Gasto por usuario, proyecto y empresa'],['Evita','Facturas de IA imprevistas a fin de mes']]],
+ ['usr','Usuarios y roles','users','Usuarios, accesos y <span class="acc">roles</span>','Inicio de sesión único con doble factor y permisos por rol: cada perfil ve solo las herramientas del Hub que le corresponden.',[['Controla','Quién entra y qué herramientas ve'],['Garantiza','SSO y doble factor para toda la plantilla']]],
+ ['mod','Modelos y licencias','cpu','Modelos y <span class="acc">licencias</span>','Claves de los proveedores de IA centralizadas y enrutado por tipo de tarea, editable sin tocar las herramientas del Hub.',[['Controla','Proveedores, claves y coste por modelo'],['Permite','Cambiar de modelo sin rehacer nada']]],
+ ['kb','Base de conocimiento','db','Base de <span class="acc">conocimiento</span>','La documentación de la empresa, consultable en lenguaje natural, con permisos por etiqueta para cada perfil.',[['Contiene','Manuales, catálogos, políticas y datos internos'],['Protege','Cada perfil usa solo sus documentos']]],
+ ['grd','Guardarraíles y DLP','shield','Guardarraíles y <span class="acc">prevención de fugas</span>','Reglas corporativas que la IA no puede saltarse y bloqueo automático de datos personales hacia modelos externos.',[['Aplica','Políticas de uso, tono y aprobaciones'],['Bloquea','DNI, teléfonos, IBAN y otros datos personales']]],
+ ['aud','Auditoría y registros','list','Auditoría y <span class="acc">registros</span>','Registro inalterable de cada interacción: usuario, fecha, herramienta, modelo, consulta, respuesta y consumo.',[['Registra','Cada consulta y respuesta de la IA'],['Sirve para','Auditorías internas y de cumplimiento']]]
+];
+let nxOpen = false;
 function buildNav(){
   const R = ROLES[role];
   const item = (v, icon, name, cls='', badge='') => `<a data-v="${v}" data-tip="${name}" class="${cls}">${ic(icon)}<span class="t lbl">${name}</span>${badge?`<span class="b lbl">${badge}</span>`:''}</a>`;
   let h = item('home','home','Inicio') + `<div class="sec"><span class="lbl">Herramientas IA</span></div>`;
   TOOLS.forEach(t => h += item(t.id, t.icon, t.name, R.tools.includes(t.id)?'':'hidden'));
   h += `<div class="sec"><span class="lbl">Gobierno de la IA</span></div>`;
-  h += R.nexus ? item('nexus','nexus','NexusMind','nx','Gobierno') : `<a class="off" data-tip="NexusMind · sin acceso">${ic('lock')}<span class="t lbl">NexusMind</span><span class="b lbl">Sin acceso</span></a>`;
+  if(R.nexus){
+    h += `<a data-nx="1" data-tip="NexusMind" class="nx">${ic('nexus')}<span class="t lbl">NexusMind</span><span class="b lbl">${NXT.length}</span><svg class="i chev lbl" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>`;
+    h += `<div class="sub" id="nxsub">${NXT.map(([k,n,icn])=>`<a data-nt="${k}" data-tip="NexusMind · ${n}">${ic(icn)}<span class="t lbl">${n}</span></a>`).join('')}</div>`;
+  } else h += `<a class="off" data-tip="NexusMind · sin acceso">${ic('lock')}<span class="t lbl">NexusMind</span><span class="b lbl">Sin acceso</span></a>`;
   $('#nav').innerHTML = h;
   document.querySelectorAll('#nav a[data-v]').forEach(a => a.onclick = () => go(a.dataset.v));
+  const nx = document.querySelector('#nav a[data-nx]');
+  if(nx) nx.onclick = () => {
+    if(!document.body.classList.contains('open')){ setOpen(true); nxOpen = true; }
+    else nxOpen = !nxOpen;
+    if(nxOpen && current !== 'nexus'){ ntab = 'res'; go('nexus'); } else mark();
+  };
+  document.querySelectorAll('#nav a[data-nt]').forEach(a => a.onclick = () => { ntab = a.dataset.nt; go('nexus'); });
   mark();
 }
-function mark(){ document.querySelectorAll('#nav a[data-v]').forEach(a => a.classList.toggle('on', a.dataset.v === current)); }
+function mark(){
+  document.querySelectorAll('#nav a[data-v]').forEach(a => a.classList.toggle('on', a.dataset.v === current));
+  document.querySelectorAll('#nav a[data-nt]').forEach(a => a.classList.toggle('on', current === 'nexus' && a.dataset.nt === ntab));
+  const nx = document.querySelector('#nav a[data-nx]'), sub = $('#nxsub');
+  if(nx){ nx.classList.toggle('act', current === 'nexus'); nx.classList.toggle('exp', nxOpen); }
+  if(sub) sub.classList.toggle('open', nxOpen);
+}
 function go(v){
   current = v; mark();
   const R = ROLES[role];
   const t = TOOLS.find(x => x.id === v);
   if(v === 'home'){ setHead('Inicio','Hub IA · Resumen de actividad'); return home(); }
-  if(v === 'nexus'){ if(!R.nexus) return denied('NexusMind'); setHead('NexusMind','Gobierno de la IA'); return nexus(); }
+  if(v === 'nexus'){ if(!R.nexus) return denied('NexusMind'); nxOpen = true; mark(); const T = NXT.find(x=>x[0]===ntab); $('#title').textContent = T[1]; $('#crumb').innerHTML = `NexusMind <span style="opacity:.5">›</span> <b>${T[1]}</b>`; $('#view').scrollTop = 0; return nexus(); }
   if(!R.tools.includes(v)) return denied(t.name);
   setHead(t.name, 'Herramientas IA');
   VIEWS[v]();
@@ -445,7 +490,7 @@ function home(){
       </div>
       <div class="night gv"><h3><i></i>NexusMind · estado del gobierno</h3>
         <ul class="dots"><li>3 envíos bloqueados por datos personales esta semana.</li><li>1 usuario cerca de su límite de gasto (Marta Gil, 96 %).</li><li>Todos los accesos con SSO y doble factor activos.</li></ul>
-        ${ROLES[role].nexus?'<button class="btn sm" style="margin-top:8px;background:#4BE0A1;color:#05050A" onclick="go(\'nexus\')">Abrir NexusMind</button>':''}
+        ${ROLES[role].nexus?'<button class="btn sm" style="margin-top:8px;background:#4BE0A1;color:#05050A" onclick="ntab=\'res\';go(\'nexus\')">Abrir NexusMind</button>':''}
       </div>
     </div>
   </div>
@@ -619,9 +664,8 @@ async function sumMeet(){ $('#mo').innerHTML = `<div class="card" style="min-hei
 /* =================== NEXUSMIND =================== */
 let ntab = 'res';
 function nexus(){
-  const T = [['res','Resumen'],['con','Consumo y presupuestos'],['usr','Usuarios y roles'],['mod','Modelos y licencias'],['kb','Base de conocimiento'],['grd','Guardarraíles y DLP'],['aud','Auditoría y registros']];
-  $('#view').innerHTML = `<div class="fade">${hd('NexusMind · Gobierno de la IA', 'Gobierno de la IA de <span class="acc">toda la empresa</span>', 'Control de accesos, consumo, modelos, conocimiento, seguridad y auditoría de cada interacción con la IA, conectado con el Hub.', [['Cubre','Accesos, consumo, modelos, conocimiento y auditoría'],['Sirve para','Usar la IA con control, seguridad y trazabilidad']])}
-  <div><div class="tabs">${T.map(([k,n])=>`<button class="${k===ntab?'on':''}" onclick="ntab='${k}';nexus()">${n}</button>`).join('')}</div></div><div id="nx"></div></div>`;
+  const [k, n, icn, title, desc, meta] = NXT.find(x => x[0] === ntab);
+  $('#view').innerHTML = `<div class="fade">${hd('NexusMind · ' + n, title, desc, meta)}<div id="nx"></div></div>`;
   NX[ntab]();
 }
 const NX = {};
