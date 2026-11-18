@@ -73,7 +73,7 @@ nav a.nx.act:not(.on){background:linear-gradient(135deg,#05050A,#1B2140);color:#
 nav a.nx.act svg{color:var(--gov)}
 nav a.nx.act .b{background:rgba(255,255,255,.14);color:#fff}
 .sub{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1);position:relative;margin:-2px 0 4px}
-.sub.open{max-height:520px}
+.sub.open{max-height:760px}
 .sub a{height:40px;border-radius:13px;margin:0 0 4px 14px;padding:0 12px;font-size:12.8px;font-weight:600;background:transparent;box-shadow:none;gap:11px}
 .sub a svg{width:17px;height:17px}
 .sub a:hover{background:rgba(255,255,255,.7)}
@@ -82,6 +82,37 @@ nav a.nx.act .b{background:rgba(255,255,255,.14);color:#fff}
 body:not(.open) .sub a{margin-left:0;justify-content:center;padding:0;width:52px}
 body:not(.open) .sub a .t, body:not(.open) nav a.nx .chev{display:none}
 .crumb b{color:var(--ink);font-weight:700}
+.sub-sep{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#B45309;margin:10px 0 6px 14px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.sub-sep::after{content:"";flex:1;height:1px;background:repeating-linear-gradient(90deg,rgba(245,158,11,.6) 0 4px,transparent 4px 8px)}
+body:not(.open) .sub-sep{margin:8px 0 6px;justify-content:center}
+body:not(.open) .sub-sep span{display:none}
+body:not(.open) .sub-sep::after{flex:0 0 26px}
+.sub a.opt{border:1.5px dashed rgba(245,158,11,.65);background:rgba(254,243,220,.45)}
+.sub a.opt svg{color:#D97706}
+.sub a.opt .b{background:var(--amber-l);color:#B45309}
+.sub a.opt.on{background:var(--amber-l);box-shadow:inset 0 0 0 1px rgba(245,158,11,.6);border-color:transparent}
+.course{display:flex;flex-direction:column;gap:10px}
+.course .tags{display:flex;gap:5px;flex-wrap:wrap}
+.course h4{font-size:16px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.course p{font-size:12.8px;line-height:1.55;color:var(--text2)}
+.course .meta{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--text3);font-weight:600}
+.course .foot{margin-top:auto;display:flex;align-items:center;gap:10px}
+.course .foot .bar{flex:1}
+.lesson{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:12px;background:var(--blue-s);margin-bottom:6px;font-size:12.8px}
+.lesson .ck{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#fff;box-shadow:inset 0 0 0 1.5px rgba(11,13,26,.15)}
+.lesson.done .ck{background:var(--green);box-shadow:none;color:#fff}
+.lesson .ck svg{width:13px;height:13px}
+.mod{font-size:13.5px;font-weight:700;margin:14px 0 8px;font-family:'Space Grotesk',sans-serif}
+.night.amb{border-color:rgba(245,158,11,.75);box-shadow:0 0 30px rgba(245,158,11,.16) inset,var(--sh)}
+.night.amb h3 i{background:var(--amber);box-shadow:0 0 10px var(--amber)}
+.ai.amb{background:linear-gradient(120deg,rgba(254,243,220,.95),rgba(255,255,255,.85));box-shadow:inset 0 0 0 1px rgba(245,158,11,.3)}
+.ai.amb .t{color:#B45309}
+.opt-row{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--blue-s);margin-bottom:6px;font-size:13px}
+.opt-row .tog{margin-left:auto}
+.radio{display:flex;flex-direction:column;gap:8px}
+.radio label{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:14px;background:var(--blue-s);cursor:pointer;font-size:13px}
+.radio label span{font-size:11.5px;color:var(--text2);display:block}
+.radio input{margin-top:3px;accent-color:var(--blue)}
 nav a.off{opacity:.45;cursor:default}
 body:not(.open) nav a .t, body:not(.open) nav a .b{display:none}
 body:not(.open) nav a[data-tip]:hover::after{content:attr(data-tip);position:fixed;left:calc(var(--side-w) + 26px);background:var(--night);color:#fff;font-size:12px;font-weight:600;padding:7px 11px;border-radius:10px;white-space:nowrap;box-shadow:var(--sh-s);z-index:60}
@@ -242,8 +273,52 @@ ul.dots li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:
 .deal b{font-size:13px;display:block}.deal .am{font-size:19px;font-weight:700;letter-spacing:-.03em;margin:4px 0;color:var(--blue-d)}
 .deal .nx{font-size:11.5px;color:var(--text2);line-height:1.45;display:flex;gap:6px}
 .deal .nx svg{width:14px;height:14px;margin-top:1px}
+/* ---------- responsive: escritorio > 1100 · tablet 761-1100 · móvil ≤ 760 ---------- */
+.burger{display:none;width:44px;height:44px;border-radius:14px;border:none;background:linear-gradient(135deg,#2563EB,#1E3A8A);color:#fff;align-items:center;justify-content:center;box-shadow:var(--glow);flex-shrink:0}
+.burger svg{width:20px;height:20px}
+.scrim{position:fixed;inset:0;background:rgba(5,5,10,.38);backdrop-filter:blur(3px);z-index:35;opacity:0;pointer-events:none;transition:opacity .25s}
+body.touch nav a[data-tip]:hover::after{display:none}
 @media (max-width:1200px){.search{display:none}}
-@media (max-width:1100px){.g4{grid-template-columns:1fr 1fr}.g3,.g21,.g12,.pipe,.hd{grid-template-columns:1fr}.hchips{display:none}}
+@media (max-width:1100px){
+  .g4{grid-template-columns:1fr 1fr}.g3,.g21,.g12,.pipe,.hd{grid-template-columns:1fr}.hchips{display:none}
+  main{padding-right:14px}
+  .hd h2{font-size:32px}
+}
+@media (max-width:760px){
+  main{margin-left:0;padding:10px 10px 40px}
+  header{top:10px;padding:8px 10px;gap:10px;border-radius:20px}
+  .burger{display:flex}
+  header h1{font-size:16px}
+  header .crumb{font-size:11px;max-width:46vw;overflow:hidden;text-overflow:ellipsis}
+  .hbox:not(.me){display:none}
+  .hbox.me{height:44px;padding:0 10px;gap:8px}
+  .hbox.me b{display:none}
+  .hbox.me .av{width:30px;height:30px;font-size:11px;border-radius:10px}
+  .side{left:10px;top:10px;bottom:10px;width:284px;transform:translateX(calc(-100% - 24px));transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:45}
+  body.menu .side{transform:none}
+  body.menu .scrim{opacity:1;pointer-events:auto}
+  .s-tog{display:none}
+  #view{padding-top:12px}
+  .hd{padding:22px 20px;gap:18px;border-radius:20px}
+  .hd h2{font-size:27px}
+  .hd p{font-size:13.5px}
+  .hd-meta{gap:14px}.hd-meta b{font-size:13.5px}
+  .g{gap:12px}.mt{margin-top:12px}
+  .g4{grid-template-columns:1fr 1fr}.g2,.g3,.g21,.g12,.pipe{grid-template-columns:1fr}
+  .card{padding:18px 16px;border-radius:20px}
+  .card h3{flex-wrap:wrap}
+  .kpi{padding:15px 14px}.kpi .v{font-size:25px;margin-top:10px}
+  .kpi .l{font-size:9.5px;letter-spacing:.12em;gap:8px}.kpi .l .ic{width:28px;height:28px;border-radius:9px}
+  .kpi .trd{right:10px;top:10px}
+  .card table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .feed li{flex-wrap:wrap}
+  .drawer{left:8px;right:8px;top:8px;bottom:8px;width:auto;max-width:none}
+  .toast{left:12px;right:12px;bottom:12px;max-width:none}
+  .kv{grid-template-columns:105px 1fr}
+  .chatbox{height:420px}
+  .rule{align-items:flex-start}
+}
+@media (max-width:420px){.g4{grid-template-columns:1fr}.hd-meta{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -258,6 +333,7 @@ ul.dots li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:
 </aside>
 <main>
   <header class="glass">
+    <button class="burger" id="burger" aria-label="Abrir menú"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
     <div><h1 id="title">Inicio</h1><div class="crumb" id="crumb">Hub IA · Resumen de actividad</div></div>
     <div class="sp"></div>
     <label class="search"><span class="eb">BUSCAR</span><input placeholder="Consulta global del Hub…" onkeydown="if(event.key==='Enter'){toast('Búsqueda global disponible en la versión final');this.value=''}"></label>
@@ -267,6 +343,7 @@ ul.dots li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:
   </header>
   <section id="view"></section>
 </main>
+<div class="scrim" id="scrim"></div>
 <div class="drawer" id="drawer"><div class="dh"><b id="dtitle"></b><button class="x" onclick="closeDrawer()">✕</button></div><div class="db" id="dbody"></div></div>
 <div class="toast" id="toast"></div>
 <script>
@@ -299,6 +376,9 @@ const I = {
  nexus:'<circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="m6 7 4 3.5M18 7l-4 3.5M6 17l4-3.5M18 17l-4-3.5"/>',
  msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
  settings:'<circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/>',
+ grad:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/><path d="M22 10v6"/>',
+ sliders:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
+ server:'<rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01M10 7h6M10 17h6"/>',
  db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>'
 };
 const ic = (k, cls='') => `<svg class="i ${cls}" viewBox="0 0 24 24">${I[k]}</svg>`;
@@ -372,10 +452,14 @@ const NXT = [
  ['con','Consumo y presupuestos','euro','Consumo y <span class="acc">presupuestos</span>','Límites de gasto por persona, por proyecto y global, con el consumo real de cada usuario en tokens y en euros.',[['Controla','Gasto por usuario, proyecto y empresa'],['Evita','Facturas de IA imprevistas a fin de mes']]],
  ['usr','Usuarios y roles','users','Usuarios, accesos y <span class="acc">roles</span>','Inicio de sesión único con doble factor y permisos por rol: cada perfil ve solo las herramientas del Hub que le corresponden.',[['Controla','Quién entra y qué herramientas ve'],['Garantiza','SSO y doble factor para toda la plantilla']]],
  ['mod','Modelos y licencias','cpu','Modelos y <span class="acc">licencias</span>','Claves de los proveedores de IA centralizadas y enrutado por tipo de tarea, editable sin tocar las herramientas del Hub.',[['Controla','Proveedores, claves y coste por modelo'],['Permite','Cambiar de modelo sin rehacer nada']]],
+ ['pol','Política de uso','sliders','Política de uso y <span class="acc">suscripciones</span>','Qué modelos puede usar la empresa, cuál se propone por defecto, qué ocurre al agotar el presupuesto y qué plazas individuales de IA tiene cada persona.',[['Decide','Modelos permitidos y valores por defecto'],['Aprovecha','Las suscripciones que la empresa ya paga']]],
  ['kb','Base de conocimiento','db','Base de <span class="acc">conocimiento</span>','La documentación de la empresa, consultable en lenguaje natural, con permisos por etiqueta para cada perfil.',[['Contiene','Manuales, catálogos, políticas y datos internos'],['Protege','Cada perfil usa solo sus documentos']]],
+ ['frm','Formación','grad','Formación de los <span class="acc">equipos</span>','Cursos para usar el Hub y la IA con criterio, con inscripciones, avance por persona y formación obligatoria de uso responsable.',[['Incluye','Catálogo propio y cursos de NexusMind'],['Ayuda a cumplir','La alfabetización en IA del Reglamento europeo de IA']]],
  ['grd','Guardarraíles y DLP','shield','Guardarraíles y <span class="acc">prevención de fugas</span>','Reglas corporativas que la IA no puede saltarse y bloqueo automático de datos personales hacia modelos externos.',[['Aplica','Políticas de uso, tono y aprobaciones'],['Bloquea','DNI, teléfonos, IBAN y otros datos personales']]],
  ['aud','Auditoría y registros','list','Auditoría y <span class="acc">registros</span>','Registro inalterable de cada interacción: usuario, fecha, herramienta, modelo, consulta, respuesta y consumo.',[['Registra','Cada consulta y respuesta de la IA'],['Sirve para','Auditorías internas y de cumplimiento']]]
 ];
+const NXO = [['loc','Servidor de IA local','server','Servidor de <span class="acc">IA local</span>','Estado, rendimiento y modelos del servidor de IA instalado en la empresa, donde se procesan los datos sensibles sin salir de sus instalaciones.',[['Disponible si','La empresa tiene un servidor de IA local'],['Sirve para','Procesar datos sensibles dentro de la empresa']]]];
+const NXA = NXT.concat(NXO);
 let nxOpen = false;
 function buildNav(){
   const R = ROLES[role];
@@ -384,8 +468,8 @@ function buildNav(){
   TOOLS.forEach(t => h += item(t.id, t.icon, t.name, R.tools.includes(t.id)?'':'hidden'));
   h += `<div class="sec"><span class="lbl">Gobierno de la IA</span></div>`;
   if(R.nexus){
-    h += `<a data-nx="1" data-tip="NexusMind" class="nx">${ic('nexus')}<span class="t lbl">NexusMind</span><span class="b lbl">${NXT.length}</span><svg class="i chev lbl" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>`;
-    h += `<div class="sub" id="nxsub">${NXT.map(([k,n,icn])=>`<a data-nt="${k}" data-tip="NexusMind · ${n}">${ic(icn)}<span class="t lbl">${n}</span></a>`).join('')}</div>`;
+    h += `<a data-nx="1" data-tip="NexusMind" class="nx">${ic('nexus')}<span class="t lbl">NexusMind</span><span class="b lbl">${NXA.length}</span><svg class="i chev lbl" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>`;
+    h += `<div class="sub" id="nxsub">${NXT.map(([k,n,icn])=>`<a data-nt="${k}" data-tip="NexusMind · ${n}">${ic(icn)}<span class="t lbl">${n}</span></a>`).join('')}<div class="sub-sep"><span>Integración opcional</span></div>${NXO.map(([k,n,icn])=>`<a data-nt="${k}" class="opt" data-tip="${n} · integración opcional">${ic(icn)}<span class="t lbl">${n}</span><span class="b lbl">Opcional</span></a>`).join('')}</div>`;
   } else h += `<a class="off" data-tip="NexusMind · sin acceso">${ic('lock')}<span class="t lbl">NexusMind</span><span class="b lbl">Sin acceso</span></a>`;
   $('#nav').innerHTML = h;
   document.querySelectorAll('#nav a[data-v]').forEach(a => a.onclick = () => go(a.dataset.v));
@@ -410,7 +494,7 @@ function go(v){
   const R = ROLES[role];
   const t = TOOLS.find(x => x.id === v);
   if(v === 'home'){ setHead('Inicio','Hub IA · Resumen de actividad'); return home(); }
-  if(v === 'nexus'){ if(!R.nexus) return denied('NexusMind'); nxOpen = true; mark(); const T = NXT.find(x=>x[0]===ntab); $('#title').textContent = T[1]; $('#crumb').innerHTML = `NexusMind <span style="opacity:.5">›</span> <b>${T[1]}</b>`; $('#view').scrollTop = 0; return nexus(); }
+  if(v === 'nexus'){ if(!R.nexus) return denied('NexusMind'); nxOpen = true; mark(); const T = NXA.find(x=>x[0]===ntab); $('#title').textContent = T[1]; $('#crumb').innerHTML = `NexusMind <span style="opacity:.5">›</span> <b>${T[1]}</b>`; $('#view').scrollTop = 0; return nexus(); }
   if(!R.tools.includes(v)) return denied(t.name);
   setHead(t.name, 'Herramientas IA');
   VIEWS[v]();
@@ -660,8 +744,8 @@ async function sumMeet(){ $('#mo').innerHTML = `<div class="card" style="min-hei
 /* =================== NEXUSMIND =================== */
 let ntab = 'res';
 function nexus(){
-  const [k, n, icn, title, desc, meta] = NXT.find(x => x[0] === ntab);
-  $('#view').innerHTML = `<div class="fade">${hd('NexusMind · ' + n, title, desc, meta)}<div id="nx"></div></div>`;
+  const [k, n, icn, title, desc, meta] = NXA.find(x => x[0] === ntab);
+  $('#view').innerHTML = `<div class="fade">${hd((k==='loc'?'NexusMind · Integración opcional':'NexusMind · ' + n), title, desc, meta)}<div id="nx"></div></div>`;
   NX[ntab]();
 }
 const NX = {};
@@ -731,15 +815,103 @@ function openLog(i){ const l = LOGS[i];
   <label class="f">Consulta enviada</label><div class="bubble me" style="max-width:100%">${l.p}</div><label class="f" style="margin-top:6px">Respuesta</label><div class="bubble bot" style="max-width:100%">${l.r}</div>
   <p class="muted" style="margin-top:12px">Registro inalterable, disponible para auditorías internas y de cumplimiento.</p>`); }
 
+
+/* ---------- Formación ---------- */
+const COURSES = [
+ {t:'Primeros pasos con el Hub IA', o:'NexusMind', tags:['Primeros pasos','Plataforma'], d:'Todo lo necesario para trabajar desde el primer día: herramientas del Hub, permisos, proyectos y consumo de IA.', m:2, l:6, min:30, ins:22, done:6},
+ {t:'Uso responsable de la IA y protección de datos', o:'Empresa', tags:['Obligatoria','IA responsable','Protección de datos'], d:'Qué información se puede compartir con la IA, qué nunca, cómo seudonimizar datos y quién revisa cada resultado antes de que salga.', m:3, l:7, min:45, ins:22, done:7},
+ {t:'Prompts que funcionan en el día a día', o:'NexusMind', tags:['Prompts','Productividad'], d:'Cómo pedirle a un agente lo que de verdad necesitas: estructura de una buena instrucción, ejemplos y una biblioteca reutilizable.', m:3, l:9, min:50, ins:18, done:4},
+ {t:'Atención al cliente con agentes', o:'Empresa', tags:['Atención al cliente','Agentes de IA'], d:'Trabajar con la bandeja de solicitudes: revisar la clasificación, editar la respuesta propuesta y escalar los casos delicados.', m:2, l:5, min:30, ins:9, done:2},
+ {t:'Facturas y validación antes del ERP', o:'Empresa', tags:['Administración','Automatización'], d:'Cómo funciona el lector de facturas, qué comprobar en cada diferencia y cuándo pedir una rectificativa al proveedor.', m:2, l:4, min:25, ins:5, done:0},
+ {t:'Pregunta a tus datos: cuadros de mando con IA', o:'Empresa', tags:['Dirección','Analítica'], d:'Leer los KPIs con ayuda de la IA, hacer buenas preguntas a los datos y detectar cuándo una respuesta necesita contraste.', m:2, l:6, min:35, ins:0, done:0, draft:true}
+];
+const TRAINEES = [['Laura Martín','Dirección',true,4,1,'Hoy'],['Marta Gil','Comercial',true,3,2,'Ayer'],['Javier Ruiz','Administración',true,3,1,'Hace 2 días'],['Pablo Sanz','Operaciones',true,2,1,'Hace 3 días'],['Elena Torres','Comercial',false,1,2,'Hace 5 días'],['Carlos Vega','Operaciones',true,2,0,'Hace 1 semana'],['Ana López','Administración',false,0,1,'Hace 2 semanas']];
+NX.frm = () => {
+  const card = (c,i) => { const pct = Math.round(c.done/c.l*100); const st = c.draft ? '<span class="pill gray">Borrador</span>' : pct===100 ? '<span class="pill green">Completada</span>' : pct>0 ? `<span class="pill amber">${c.done} de ${c.l} lecciones</span>` : '<span class="pill">Sin empezar</span>';
+    return `<div class="card course${c.tags.includes('Obligatoria')?' top':''}"><div class="tags"><span class="pill ${c.o==='NexusMind'?'gov':'gray'}">${c.o==='NexusMind'?'De NexusMind':'De la empresa'}</span>${c.tags.map(t=>`<span class="pill ${t==='Obligatoria'?'red':''}">${t}</span>`).join('')}</div>
+      <h4>${c.t}</h4><p>${c.d}</p><div class="meta"><span>${c.m} módulos</span><span>${c.l} lecciones</span><span>${c.min} min</span><span>${c.ins} inscritos</span></div>
+      <div class="foot">${c.draft?'':`<div class="bar"><i style="width:${pct}%"></i></div>`}${st}</div>
+      <div style="display:flex;gap:8px"><button class="btn sm blue" onclick="openCourse(${i})">Ver temario</button>${c.draft?'<button class="btn sm ghost" onclick="toast(\'Formación publicada para todo el equipo\')">Publicar</button>':'<button class="btn sm ghost" onclick="toast(\'Inscripción enviada al equipo seleccionado\')">Inscribir</button>'}</div></div>`; };
+  $('#nx').innerHTML = `<div class="g g4">${kpi('grad','c-blue','Inscripciones completadas','62 %','36 de 58 inscripciones')}${kpi('zap','c-red','En curso','14','personas avanzando esta semana')}${kpi('shield','c-amber','Formación obligatoria','20 <small>/ 22</small>','2 personas pendientes')}${kpi('clock','c-green','Horas de formación','31 h','<span class="up">▲ 9 h</span> este mes')}</div>
+  <div class="ai mt"><div class="t">${ic('shield')}Alfabetización en IA</div>El Reglamento europeo de IA (art. 4) pide que las personas que usan IA en la empresa tengan formación suficiente. La formación obligatoria y su registro de avance sirven como evidencia.</div>
+  <div class="card mt"><h3>${ic('grad','c-blue')}Catálogo de formaciones<span class="r"><button class="btn sm blue" onclick="toast('Editor de formaciones disponible en la versión final')">Nueva formación</button></span></h3>
+    <div class="g g3">${COURSES.map(card).join('')}</div></div>
+  <div class="card mt"><h3>${ic('users','c-blue')}Avance por persona<span class="r">Formación obligatoria y cursos del Hub</span></h3>
+  <table><tr><th>Persona</th><th>Obligatoria</th><th>Completadas</th><th>En curso</th><th>Última actividad</th><th></th></tr>
+  ${TRAINEES.map(([n,r,ob,c,e,u])=>`<tr><td>${userCell(n,r)}</td><td>${ob?'<span class="pill green">Completada</span>':'<span class="pill red">Pendiente</span>'}</td><td><b>${c}</b></td><td>${e}</td><td class="muted">${u}</td><td>${ob?'':`<button class="btn sm ghost" onclick="toast('Recordatorio enviado a ${n}')">Recordar</button>`}</td></tr>`).join('')}</table></div>`;
+};
+const SYLLABUS = [['Por qué necesitamos reglas',['Los riesgos reales de usar IA con datos de la empresa','Qué es un guardarraíl y qué no lo es']],['Datos y confidencialidad',['Qué información nunca se comparte con la IA','Seudonimizar antes de analizar']],['Usar y publicar con responsabilidad',['Sectores regulados y datos especialmente protegidos','Propiedad intelectual y marcas de terceros','La revisión humana: quién firma y qué comprueba']]];
+function openCourse(i){ const c = COURSES[i]; let k = 0;
+  const mods = (i===1 ? SYLLABUS : Array.from({length:c.m},(_,m)=>[`Módulo ${m+1}`, Array.from({length:Math.ceil(c.l/c.m)},(_,j)=>`Lección ${m*Math.ceil(c.l/c.m)+j+1}`)]))
+    .map(([mt,ls])=>`<div class="mod">${mt}</div>${ls.slice(0, c.l).map(l=>{ k++; const d = k<=c.done; return `<div class="lesson ${d?'done':''}"><span class="ck">${d?ic('check'):''}</span>${l}</div>`; }).join('')}`).join('');
+  openDrawer(c.t, `<div class="kv"><dt>Origen</dt><dd>${c.o==='NexusMind'?'Formación de NexusMind':'Formación de la empresa'}</dd><dt>Duración</dt><dd>${c.m} módulos · ${c.l} lecciones · ${c.min} min</dd><dt>Inscritos</dt><dd>${c.ins} personas</dd><dt>Tu avance</dt><dd>${c.done} de ${c.l} lecciones</dd></div><p class="muted">${c.d}</p>${mods}
+  <button class="btn blue mt" onclick="toast('Abriendo la siguiente lección');closeDrawer()">${c.done>=c.l?'Repasar':'Continuar'}</button>`); }
+
+/* ---------- Política de uso y suscripciones ---------- */
+const POLMODELS = [['Anthropic',[['Claude Opus',true],['Claude Sonnet',true],['Claude Haiku',true]]],['OpenAI',[['GPT',true],['GPT mini',true]]],['Google',[['Gemini Pro',true],['Gemini Flash',false]]]];
+const SUBS = [['Laura Martín','Claude Team','ok'],['Marta Gil','ChatGPT Business','ok'],['Javier Ruiz','Claude Team','exp'],['Elena Torres','Claude Team','ok'],['Pablo Sanz','Gemini Business','none']];
+NX.pol = () => {
+  $('#nx').innerHTML = `<div class="g g2"><div class="card"><h3>${ic('cpu','c-blue')}Modelos permitidos<span class="r">Para todas las herramientas del Hub</span></h3>
+    <div class="radio" style="margin-bottom:12px"><label><input type="radio" name="pm"><div><b>Todos los del catálogo</b><span>También los que se añadan más adelante.</span></div></label><label><input type="radio" name="pm" checked><div><b>Solo los elegidos</b><span>Marca los modelos que se pueden usar.</span></div></label></div>
+    ${POLMODELS.map(([p,ms])=>`<label class="f" style="margin-top:10px">${p}</label>${ms.map(([m,on])=>`<div class="opt-row">${ic('cpu','c-blue')}${m}<button class="tog ${on?'on':''}" onclick="this.classList.toggle('on');toast('${m} ' + (this.classList.contains('on')?'permitido':'desactivado'))"></button></div>`).join('')}`).join('')}</div>
+  <div style="display:flex;flex-direction:column;gap:16px"><div class="card top"><h3>${ic('sliders','c-blue')}Valores por defecto</h3>
+    <label class="f">Modelo por defecto</label><select class="f"><option>El recomendado según la tarea</option><option>Claude Sonnet</option><option>GPT</option><option>Gemini Pro</option></select>
+    <div class="g g2" style="margin-top:12px"><div><label class="f">Esfuerzo de razonamiento</label><select class="f"><option>El del modelo</option><option>Bajo</option><option selected>Medio</option><option>Alto</option></select></div><div><label class="f">Tiempo máximo por tarea</label><input class="f" value="15 minutos"></div></div>
+    <label class="f" style="margin-top:12px">Al agotar el presupuesto</label>
+    <div class="radio"><label><input type="radio" name="ag" checked><div><b>Cortar</b><span>No se lanzan tareas nuevas y se paran las que estén en marcha.</span></div></label><label><input type="radio" name="ag"><div><b>Solo avisar</b><span>Las tareas siguen y se avisa a dirección.</span></div></label></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:12px"><span class="muted">Avisar al llegar al</span><input class="f" value="80 %" style="max-width:90px"><button class="btn blue sm" style="margin-left:auto" onclick="toast('Política de uso guardada')">Guardar la política</button></div></div>
+    <div class="ai"><div class="t">${ic('spark')}Más esfuerzo, más coste</div>Un esfuerzo de razonamiento alto mejora las tareas difíciles, pero tarda más y consume más. Se puede ajustar por herramienta del Hub.</div></div></div>
+  <div class="card mt"><h3>${ic('key','c-blue')}Suscripciones individuales<span class="r"><button class="btn sm ghost" onclick="toast('Nueva suscripción añadida')">Añadir</button></span></h3>
+    <p class="muted" style="margin:-4px 0 10px">Plazas de IA que la empresa ya paga por persona. Sus mensajes no consumen el presupuesto de API y la credencial se guarda cifrada.</p>
+    <table><tr><th>Persona</th><th>Plaza</th><th>Estado</th><th></th></tr>${SUBS.map(([n,pl,st])=>`<tr><td>${userCell(n,'Uso personal')}</td><td>${pl}</td><td>${st==='ok'?'<span class="pill green">Sesión iniciada</span>':st==='exp'?'<span class="pill amber">Sesión caducada</span>':'<span class="pill gray">Sin iniciar sesión</span>'}</td><td>${st==='ok'?'':`<button class="btn sm ghost" onclick="toast('Aviso enviado a ${n} para iniciar sesión')">Avisar</button>`}</td></tr>`).join('')}</table></div>`;
+};
+
+/* ---------- Servidor de IA local (integración opcional) ---------- */
+NX.loc = () => {
+  const hrs = ['14:00','18:00','22:00','02:00','06:00','10:00','14:00'];
+  const cpu = [14,22,56,9,6,31,25], gpu = [21,44,39,12,8,52,61], vram = [11,17,16,9,8,19,18], ram = [5.2,7.9,6.8,4.1,3.6,8.8,8.3];
+  $('#nx').innerHTML = `<div class="ai amb" style="display:flex;gap:12px;align-items:flex-start">${ic('server','c-amber')}<div><div class="t">Integración opcional</div>Este apartado solo se activa si la empresa tiene un servidor de IA local. Con él, las consultas con datos personales que detecta la prevención de fugas se envían al modelo local en vez de bloquearse.</div></div>
+  <div class="g g4 mt">${kpi('server','c-green','Estado','En marcha','Agente conectado · encendido hace 78 d 5 h')}${kpi('cpu','c-blue','GPU','61 %','VRAM 18 GB de 32 GB')}${kpi('zap','c-amber','Procesador','25 %','Media 18 % · pico 56 % en 24 h')}${kpi('db','c-red','Disco de datos','37 GB','de 4 TB · copias en el disco de 8 TB')}</div>
+  <div class="g g2 mt"><div class="card"><h3>${ic('chart','c-blue')}GPU y procesador · últimas 24 horas<span class="r">% de uso</span></h3>${lineChart([{d:gpu,c:'#2563EB',fill:true},{d:cpu,c:'#F59E0B'}], hrs, 170)}<div class="legend"><span><i style="background:#2563EB"></i>GPU</span><span><i style="background:#F59E0B"></i>Procesador</span></div></div>
+  <div class="card"><h3>${ic('layers','c-blue')}Memoria · últimas 24 horas<span class="r">GB en uso</span></h3>${lineChart([{d:vram,c:'#EE1554',fill:true},{d:ram,c:'#1E3A8A'}], hrs, 170)}<div class="legend"><span><i style="background:#EE1554"></i>VRAM de la GPU (máx. 32 GB)</span><span><i style="background:#1E3A8A"></i>Memoria del sistema (máx. 64 GB)</span></div></div></div>
+  <div class="g g21 mt"><div class="card"><h3>${ic('cpu','c-blue')}Modelos locales<span class="r">Servidos dentro de la empresa</span></h3>
+    <table><tr><th>Modelo</th><th>Uso principal</th><th>Peticiones hoy</th><th>Velocidad</th><th>Estado</th></tr>
+    <tr><td><b>Modelo general 70B</b></td><td>Consultas con datos personales</td><td>148</td><td>24 tokens/s</td><td><span class="pill green">Cargado</span></td></tr>
+    <tr><td><b>Modelo ligero 8B</b></td><td>Clasificación y extracción</td><td>412</td><td>96 tokens/s</td><td><span class="pill green">Cargado</span></td></tr>
+    <tr><td><b>Modelo de embeddings</b></td><td>Base de conocimiento confidencial</td><td>1.306</td><td>—</td><td><span class="pill green">Cargado</span></td></tr></table>
+    <p class="muted" style="margin-top:8px">Modelos de ejemplo: se eligen según el hardware y los casos de uso de cada empresa.</p></div>
+  <div style="display:flex;flex-direction:column;gap:16px"><div class="card"><h3>${ic('server','c-amber')}Ficha del servidor</h3><div class="kv" style="margin:0"><dt>Ubicación</dt><dd>Instalaciones de la empresa</dd><dt>Procesador</dt><dd>24 núcleos</dd><dt>Memoria</dt><dd>64 GB</dd><dt>GPU</dt><dd>32 GB de VRAM</dd><dt>Discos</dt><dd>1 TB sistema · 4 TB datos · 8 TB copias</dd><dt>Apagado</dt><dd>Nunca por inactividad</dd></div></div>
+    <div class="night amb"><h3><i></i>Últimas operaciones</h3><ul class="dots"><li>17/11 · Parches de seguridad aplicados.</li><li>15/11 · Copia de seguridad completada.</li><li>10/11 · Modelo ligero actualizado.</li></ul></div></div></div>`;
+};
+
 /* =================== arranque =================== */
 $('#role').innerHTML = Object.keys(ROLES).map(r=>`<option>${r}</option>`).join('');
 $('#role').onchange = e => { role = e.target.value; const u = ROLES[role].user; $('#uname').textContent = u[0]; $('#uav').textContent = u[1]; buildNav(); if((current!=='home' && current!=='nexus' && !ROLES[role].tools.includes(current)) || (current==='nexus' && !ROLES[role].nexus)) current = 'home'; go(current); toast(`Viendo el Hub como <b>${role}</b>: ${ROLES[role].tools.length} herramientas disponibles`); };
 $('#model').onchange = e => toast(`Modelo cambiado a <b>${e.target.value}</b>. Las herramientas siguen funcionando igual.`);
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeDrawer(); });
-const setOpen = o => { document.body.classList.toggle('open', o); $('#stog').title = o ? 'Contraer menú' : 'Desplegar menú'; try { localStorage.setItem('hubia-side', o ? '1' : '0'); } catch(e){} };
-let startOpen = true; try { startOpen = localStorage.getItem('hubia-side') !== '0'; } catch(e){}
-setOpen(startOpen);
+/* ---- detección de dispositivo: escritorio, tablet o móvil ---- */
+const MQ = { mobile: matchMedia('(max-width:760px)'), tablet: matchMedia('(max-width:1100px)'), touch: matchMedia('(hover:none), (pointer:coarse)') };
+let device = '';
+const savedOpen = () => { try { return localStorage.getItem('hubia-side') !== '0'; } catch(e){ return true; } };
+const setOpen = o => { document.body.classList.toggle('open', o); $('#stog').title = o ? 'Contraer menú' : 'Desplegar menú'; if(device === 'desktop'){ try { localStorage.setItem('hubia-side', o ? '1' : '0'); } catch(e){} } };
+const setMenu = o => document.body.classList.toggle('menu', o);
+function applyDevice(){
+  const d = MQ.mobile.matches ? 'mobile' : MQ.tablet.matches ? 'tablet' : 'desktop';
+  document.body.classList.toggle('touch', MQ.touch.matches);
+  if(d === device) return;
+  device = d;
+  document.body.classList.remove('dev-mobile','dev-tablet','dev-desktop'); document.body.classList.add('dev-' + d);
+  setMenu(false);
+  if(d === 'mobile') document.body.classList.add('open');        // en móvil el menú se abre entero desde el botón
+  else if(d === 'tablet') setOpen(false);                          // en tablet arranca como raíl de iconos
+  else setOpen(savedOpen());                                       // en escritorio, como lo dejó el usuario
+}
+[MQ.mobile, MQ.tablet, MQ.touch].forEach(m => m.addEventListener('change', applyDevice));
+applyDevice();
 $('#stog').onclick = () => setOpen(!document.body.classList.contains('open'));
+$('#burger').onclick = () => setMenu(!document.body.classList.contains('menu'));
+$('#scrim').onclick = () => setMenu(false);
+$('#nav').addEventListener('click', e => { const a = e.target.closest('a'); if(device === 'mobile' && a && !a.dataset.nx) setMenu(false); });
 buildNav(); go('home');
 </script>
 </body>
